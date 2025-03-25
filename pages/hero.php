@@ -7,7 +7,7 @@
                     <h1>Your Trusted Electrical Experts</h1>
                     <p>From wiring upgrades to complex installations, we're your trusted electrical experts. We provide
                         comprehensive solutions for all your residential and commercial electrical needs.</p>
-                    <a href="#" class="btn btn-warning">Get a Free Quote</a>
+                    <a href="get_a_free_quote" class="btn btn-warning">Get a Free Quote</a>
                 </div>
             </div>
         </div>

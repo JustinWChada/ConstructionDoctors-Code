@@ -17,7 +17,7 @@
             </ul>
         </div>
         <div class="text-center mt-3">
-            <a href="/contact" class="btn btn-warning">Check if We Serve Your Area</a>
+            <a href="contact?#contact-form" class="btn btn-warning">Check if We Serve Your Area</a>
         </div>
     </div>
 </section>

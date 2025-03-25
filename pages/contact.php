@@ -42,7 +42,7 @@
             <h2 class="text-center">Get in Touch</h2>
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <form>
+                    <form id="contact-form">
                         <div class="form-group">
                             <label for="name">Your Name</label>
                             <input type="text" class="form-control" id="name" placeholder="Enter your name">

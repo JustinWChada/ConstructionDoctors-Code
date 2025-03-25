@@ -33,6 +33,6 @@
                 </div>
             </div>
         </div>
-        <button class="btn btn-outline-warning px-2 mt-2 active">View More Testimonials</button>
+        <a href="testimonials" class="btn btn-outline-warning px-2 mt-2 active">View More Testimonials</a>
     </div>
 </section>

@@ -54,7 +54,7 @@
                 <p>With over [Number] years of experience, we have built a reputation for quality workmanship,
                     exceptional customer service, and competitive pricing. We are committed to safety and adhere to the
                     highest industry standards.</p>
-                <a href="/about" class="btn btn-outline-warning">Learn More</a>
+                <a href="about_us" class="btn btn-outline-warning">Learn More</a>
             </div>
         </div>
     </div>

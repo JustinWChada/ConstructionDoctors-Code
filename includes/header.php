@@ -6,8 +6,9 @@
             </div> -->
             <div class="col-12 d-flex justify-content-end align-items-center">
                 <!--col-sm-12 col-lg-6-->
-                <a href="#" class="top-header-link ms-2"><i class="bi bi-geo-alt-fill me-2 text-warning"></i>Address</a>
-                <a href="../pages/contact" class="top-header-link ms-2"><i
+                <a href="#" class="top-header-link ms-2"> <i
+                        class="bi bi-geo-alt-fill me-2 text-warning"></i>Address</a>
+                <a href="contact" class="top-header-link ms-2"><i
                         class="bi bi-telephone-fill me-2 text-warning"></i>Contact</a>
                 <a href="signin" class="top-header-link ms-2"><i
                         class="bi bi-person-circle me-2 text-warning"></i>Account</a>
