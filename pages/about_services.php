@@ -7,6 +7,7 @@
     <title>Our Services - [Your Electrician Company]</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/about_services.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/nav.css">
@@ -17,11 +18,11 @@
 <body>
     <a href="#" id="back-to-top" class="visually-hidden"><i class="bi bi-arrow-up-circle-fill"></i></a>
     <header>
-        <?php include("../includes/header.php"); ?>
+        <?php include "../includes/header.php"; ?>
     </header>
 
     <nav>
-        <?php include("../includes/nav.php"); ?>
+        <?php include "../includes/nav.php"; ?>
     </nav>
 
     <!-- Hero Section -->
@@ -159,7 +160,7 @@
     </main>
 
     <footer>
-        <?php include("../includes/footer.php"); ?>
+        <?php include "../includes/footer.php"; ?>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
