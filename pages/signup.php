@@ -48,14 +48,15 @@
                     </div>
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required
+                            autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input type="password" class="form-control" id="password" placeholder="Enter your password"
-                            required>
+                            required autocomplete="off">
                     </div>
-                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                    <button type="submit" class="signup-btn btn btn-primary">Sign Up</button>
                 </form>
                 <p>Already have an account? <a href="signin">Sign In</a></p>
             </div>
@@ -66,7 +67,9 @@
         <?php include "../includes/footer.php"; ?>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="../js/b_t_top.js"></script>
+    <script src="../js/signup.js"></script>
 </body>
 
 </html>

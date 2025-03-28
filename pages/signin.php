@@ -41,7 +41,7 @@
         <div class="container">
             <div class="auth-form">
                 <h2 class="text-center">Sign In</h2>
-                <form>
+                <form id="signin-form">
                     <div class="form-group">
                         <label for="email">Email Address</label>
                         <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
@@ -51,7 +51,7 @@
                         <input type="password" class="form-control" id="password" placeholder="Enter your password"
                             required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Sign In</button>
+                    <button type="submit" class="signin-btn btn btn-primary">Sign In</button>
                 </form>
                 <p>Don't have an account? <a href="signup">Sign Up</a></p>
                 <p>Forgot Password? <a href="forgotten_password">Click Here</a></p>
@@ -63,7 +63,9 @@
         <?php include "../includes/footer.php"; ?>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="../js/b_t_top.js"></script>
+    <script src="../js/signin.js"></script>
 </body>
 
 </html>
