@@ -11,7 +11,3 @@ $UsersConn = new mysqli($servername, $username, $password, $database);
 if ($UsersConn->connect_error) {
     die("Connection failed: " . $UsersConn->connect_error);
 }
-
-// Perform database operations here (e.g., SELECT, INSERT, UPDATE, DELETE)
-
-// Close the connection when you're done.  Very important!

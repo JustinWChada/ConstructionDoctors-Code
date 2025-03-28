@@ -70,9 +70,12 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : ''; // Optional
                 </div>
             </nav>
 
+
+
             <!-- Main Content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 p-0">
-                <div class="dashboard-content">
+                <?php include "recent_projects/show_projects.php"; ?>
+                <div class="dashboard-content" hidden>
                     <div class="dashboard-header">
                         <h1>Dashboard</h1>
                     </div>
