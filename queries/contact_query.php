@@ -11,6 +11,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phoneNumber = isset($_POST["phoneNumber"]) ? trim($_POST["phoneNumber"]) : '';
     $subject = isset($_POST["subject"]) ? trim($_POST["subject"]) : '';
     $message = isset($_POST["message"]) ? trim($_POST["message"]) : '';
+    $status = 0;
+    $created_at = date("Y-m-d H:i:s");
 
     // Data Validation
     if (empty($name) || empty($email) || empty($message)) {
@@ -32,13 +34,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = mysqli_real_escape_string($MgtConn, $message);
 
     // SQL Insertion
-    $sql = "INSERT INTO contact_messages (name, email, country_code, phone_number, subject, message) VALUES ('$name', '$email', '$countryCode', '$phoneNumber', '$subject', '$message')";
+    $sql = "INSERT INTO contact_messages (name, contact_email, contact_country_code, contact_phone_number, contact_subject, contact_message, created_at, contact_status) VALUES ('$name', '$email', '$countryCode', '$phoneNumber', '$subject', '$message','$created_at', '$status')";
 
     if (mysqli_query($MgtConn, $sql)) {
-        echo json_encode(['success' => true]);
+        echo json_encode(['success' => true, 'message' => "Your request has been successfully sent!"]);
     } else {
         error_log("MySQL Error: " . mysqli_error($MgtConn)); // Log the error
-        echo json_encode(['success' => false, 'message' => 'Error saving message.  Please try again.']);
+        echo json_encode(['success' => false, 'message' => 'Error saving message.  Please try again.' . mysqli_error($MgtConn)]);
     }
 
     mysqli_close($MgtConn);

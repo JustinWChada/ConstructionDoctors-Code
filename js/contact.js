@@ -28,6 +28,7 @@ $(document).ready(function () {
           $("#contactForm button[type=submit]").html(
             "<i class='bi bi-process'></i> Request Sent !"
           );
+          alert(response.message);
           $("#contactForm")[0].reset();
         } else {
           alert("Error: " + response.message);
