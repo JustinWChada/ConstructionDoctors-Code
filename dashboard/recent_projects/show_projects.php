@@ -16,15 +16,14 @@
 
         while ($row = $projects->fetch_assoc()) {
             ?>
-            <div class="project-card" data-id="<?php echo htmlspecialchars($row['id']); ?>">
-                <h3 class="project-title"><?php echo htmlspecialchars($row['project_title']); ?> This is what i wanted</h3>
-                <img src="../files/uploads/<?php echo htmlspecialchars($row['project_image']); ?>" class="project-image">
-                <p class="project-description" style="display:none;">
-                    <?php echo htmlspecialchars($row['project_description']); ?>
-                </p>
-                <a href="../files/uploads/<?php echo htmlspecialchars($row['project_image']); ?>">Image</a>
-            </div>
-            <?php
+    <div class="project-card" data-id="<?php echo htmlspecialchars($row['id']); ?>">
+        <h3 class="project-title"><?php echo htmlspecialchars($row['project_title']); ?></h3>
+        <img src="../files/uploads/<?php echo htmlspecialchars($row['project_image']); ?>" class="project-image">
+        <textarea class="project-description"
+            style="display:none;"><?php echo htmlspecialchars($row['project_description']); ?></textarea>
+        <a href="../files/uploads/<?php echo htmlspecialchars($row['project_image']); ?>">Image</a>
+    </div>
+    <?php
         }
         //$projects = $stmt->fetch();
     } catch (PDOException $e) {
@@ -46,7 +45,7 @@
         <textarea id="update_description" name="update_description" required></textarea>
 
         <label for="update_image">Image URL: <small><i>leave empty to not replace</i></small></label>
-        <input type="file" id="image" name="image" accept="image/*" required>
+        <input type="file" id="image" name="update_image" accept="image/*">
 
         <br>
         <button type="submit">Update Project</button>

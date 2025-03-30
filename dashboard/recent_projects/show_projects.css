@@ -102,6 +102,7 @@ textarea {
     font-size: 1rem;
     background-color: #f7f7f7; /* Slightly lighter input background */
     color: #495057;
+    white-space: pre-wrap;
 }
 
 input[type="text"]:focus,

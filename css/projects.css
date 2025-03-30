@@ -74,6 +74,8 @@
         margin-bottom: 30px;
         animation: fadeInUp 1s ease-out;
         background-color: #fff;
+        margin: 0 auto;
+        width: 90%;
     }
 
     .project-card:hover {

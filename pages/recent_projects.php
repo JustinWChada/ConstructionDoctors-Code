@@ -1,3 +1,8 @@
+<?php
+require "../queries/db_management.php";
+$pa = false;
+?>
+
 <section class="recent-projects py-5">
     <div class="container">
         <h2 class="section-title text-center fw-bold m-2">Recent Projects</h2>
@@ -14,52 +19,53 @@
             </div>
 
             <div class="carousel-inner">
+                <?php
+                try {
+                    $stmt = $MgtConn->prepare("SELECT * FROM projects");
+                    $stmt->execute();
+                    $projects = $stmt->get_result();
+
+                    $pa = true;
+                    while ($row = $projects->fetch_assoc()) {
+                        $project_title = $row['project_title'];
+                        $project_description = $row['project_description'];
+                        $project_image = $row['project_image'];
+                        $project_path = "../files/uploads/$project_image";
+                        $created_at = $row['created_at'];
+                        ?>
                 <div class="carousel-item active">
                     <div class="row">
                         <div class="col-md-6">
-                            <img src="../img/img10.jpg" class="d-block w-100" alt="Project 1">
+                            <img src="<?php echo htmlspecialchars($project_path) ?>" class="d-block w-100"
+                                alt="<?php echo htmlspecialchars($project_title) ?>">
                         </div>
                         <div class="col-md-6">
-                            <h3 class="recent-project-title">Project Title 1</h3>
-                            <p>Brief description of project 1. Details about the electrical work performed, challenges,
-                                and solutions.Brief description of project 1. Details about the electrical work
-                                performed, challenges,
-                                and solutions.Brief description of project 1. Details about the electrical work
-                                performed, challenges,
-                                and solutions.Brief description of project 1. Details about the electrical work
-                                performed, challenges,
-                                and solutions.Brief description of project 1. Details about the electrical work
-                                performed, challenges,
-                                and solutions.Brief description of project 1. Details about the electrical work
-                                performed, challenges,
-                                and solutions.</p>
+                            <h3 class="recent-project-title"><?php echo htmlspecialchars($project_title) ?></h3>
+                            <p><?php echo htmlspecialchars($project_description) ?></p>
+                            <small><?php echo htmlspecialchars($created_at) ?></small>
                         </div>
                     </div>
                 </div>
+                <?php
+                    }
+                } catch (PDOException $e) {
+                    //echo "Error: " . $e->getMessage();
+                    $projects = []; // Ensure $projects is an empty array in case of error
+                    ?>
                 <div class="carousel-item">
                     <div class="row">
                         <div class="col-md-6">
-                            <img src="../img/img11.jpg" class="d-block w-100" alt="Project 2">
+                            <img src="../img/oops.jfif" class="d-block w-100" alt="OOPS! An error occurred">
                         </div>
                         <div class="col-md-6">
-                            <h3 class="recent-project-title">Project Title 2</h3>
-                            <p>Brief description of project 2. Details about the electrical work performed, challenges,
-                                and solutions.</p>
+                            <h3 class="recent-project-title">OOPS! An Error Occurred During Projects Display</h3>
+                            <p>We are currently building our project portfolio. Please check back soon for updates!</p>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <img src="../img/img1.jpg" class="d-block w-100" alt="Project 3">
-                        </div>
-                        <div class="col-md-6">
-                            <h3 class="recent-project-title">Project Title 3</h3>
-                            <p>Brief description of project 3. Details about the electrical work performed, challenges,
-                                and solutions.</p>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                }
+                ?>
             </div>
 
             <!-- Controls -->

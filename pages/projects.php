@@ -1,3 +1,7 @@
+<?php
+require "../queries/db_management.php";
+$pa = false;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,31 +44,51 @@
         <!-- Project Section -->
         <section>
             <div class="row g-2">
+                <?php
+                try {
+                    $stmt = $MgtConn->prepare("SELECT * FROM projects");
+                    $stmt->execute();
+                    $projects = $stmt->get_result();
+
+                    $pa = true;
+                    while ($row = $projects->fetch_assoc()) {
+                        $project_title = $row['project_title'];
+                        $project_description = $row['project_description'];
+                        $project_image = $row['project_image'];
+                        $project_path = "../files/uploads/$project_image";
+                        $created_at = $row['created_at'];
+                        ?>
                 <div class="col-md-6">
                     <div class="project-card">
                         <div class="project-img-container">
-                            <img src="../img/img10.jpg" alt="Project 1">
+                            <img src="<?php echo htmlspecialchars($project_path) ?>" alt="Project 1">
                         </div>
                         <div class="project-content">
-                            <h3>Residential Rewiring - Anytown, USA</h3>
-                            <p>Complete rewiring of a 1950s home to bring it up to modern safety standards. Included new
-                                outlets, updated lighting, and a new electrical panel.</p>
+                            <h3><?php echo htmlspecialchars($project_title) ?></h3>
+                            <p><?php echo htmlspecialchars($project_description) ?> </p>
+                            <small><?php echo htmlspecialchars($created_at) ?></small>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="project-card">
-                        <div class="project-img-container">
-                            <img src="../img/img4.jpg" alt="Project 2">
-                        </div>
-                        <div class="project-content">
-                            <h3>Commercial Lighting Installation - Downtown Business Park</h3>
-                            <p>Design and installation of energy-efficient LED lighting for a new office building,
-                                reducing
-                                energy costs and improving employee productivity.</p>
-                        </div>
+                <?php
+                    }
+                } catch (PDOException $e) {
+                    //echo "Error: " . $e->getMessage();
+                    $projects = []; // Ensure $projects is an empty array in case of error
+                    ?>
+                <div class="container">
+                    <h2 class="text-center">OOPS! There was an error Displaying our Projects</h2>
+
+                    <!-- Placeholder Message -->
+                    <div class="text-center">
+                        <p>We are currently working on displaying our project portfolio. Please check back soon for
+                            updates!</p>
                     </div>
                 </div>
+                <?php
+                }
+                ?>
+            </div>
             </div>
         </section>
 

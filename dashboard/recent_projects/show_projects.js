@@ -21,7 +21,7 @@ $(document).ready(function () {
     e.preventDefault(); // Prevent normal form submission
 
     $.ajax({
-      url: "update_project.php",
+      url: "recent_projects/projects_query.php",
       type: "POST",
       data: $(this).serialize(),
       success: function (response) {
