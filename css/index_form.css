@@ -29,10 +29,11 @@
     max-width: 800px; /* Limit container width */
     width: 100%;
     padding: 30px;
-    background-color: rgba(255, 255, 255, 0.9); /* White background with slight transparency */
+    /*background-color: rgba(255, 255, 255, 0.9);  White background with slight transparency */
     border-radius: 15px; /* Rounded corners for a modern look */
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    /*box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);  Subtle shadow for depth 
     transform: scaleX(1) scaleY(1) scaleZ(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0px) translateY(0px) translateZ(0px) skewX(0deg) skewY(0deg);
+*/
 }
 
 .contact-form-section .section-title {

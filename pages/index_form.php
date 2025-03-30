@@ -57,8 +57,10 @@
     </div>
 </section>
 
+
+<script src="../js/contact.js"></script>
 <script>
-    document.getElementById('phoneNumber').addEventListener('input', function (e) {
-        this.value = this.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
-    });
+document.getElementById('phoneNumber').addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+});
 </script>

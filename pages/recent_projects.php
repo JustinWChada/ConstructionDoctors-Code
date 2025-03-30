@@ -32,8 +32,13 @@ $pa = false;
                         $project_image = $row['project_image'];
                         $project_path = "../files/uploads/$project_image";
                         $created_at = $row['created_at'];
+                        $active = "";
+
+                        if ($pa) {
+                            $active = "active";
+                        }
                         ?>
-                <div class="carousel-item active">
+                <div class="carousel-item <?php echo $active ?> ">
                     <div class="row">
                         <div class="col-md-6">
                             <img src="<?php echo htmlspecialchars($project_path) ?>" class="d-block w-100"
@@ -47,6 +52,7 @@ $pa = false;
                     </div>
                 </div>
                 <?php
+                        $pa = false;
                     }
                 } catch (PDOException $e) {
                     //echo "Error: " . $e->getMessage();
