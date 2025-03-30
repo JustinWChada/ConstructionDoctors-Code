@@ -33,8 +33,9 @@
             <div class="col-lg-3 col-md-6">
                 <h5 class="footer-heading">Get a Free Quote</h5>
                 <p>Enter your email to get a free quote.</p>
-                <form class="subscribe-form">
-                    <input type="email" class="form-control" placeholder="Enter your email">
+                <form class="subscribe-form" action="../queries/quotes_query.php" method="post"
+                    enctype="multipart/form-data">
+                    <input type="email" name="quote_email" class="form-control" placeholder="Enter your email" required>
                     <button type="submit" class="btn btn-warning mt-2">Get a Free Quote</button>
                 </form>
             </div>

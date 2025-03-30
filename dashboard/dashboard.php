@@ -74,8 +74,8 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : ''; // Optional
 
             <!-- Main Content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 p-0">
-                <?php include "contact_messages/show_messages.php"; ?>
-                <div class="dashboard-content" hidden>
+                <?php //include "contact_messages/show_messages.php"; ?>
+                <div class="dashboard-content">
                     <div class="dashboard-header">
                         <h1>Dashboard</h1>
                     </div>
