@@ -40,11 +40,62 @@
             <h2 class="text-center">Common Questions</h2>
 
             <div class="accordion" id="faqAccordion">
-                <!-- FAQ Item 1 -->
+                <?php
+                require "../queries/db_management.php";
+                function displayFaqs($MgtConn)
+                {
+                    try {
+                        $sql = "SELECT faq_id, question, answer FROM faqs ORDER BY created_at DESC";
+                        $stmt = $MgtConn->prepare($sql);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+
+                        //if ($stmt->row_count > 0) {
+                        echo '<div class="accordion" id="faqAccordion">';
+                        $i = 1;
+                        while ($row = $result->fetch_assoc()) {
+                            $faq_id = htmlspecialchars($row["faq_id"]);
+                            $question = htmlspecialchars($row["question"]);
+                            $answer = htmlspecialchars($row["answer"]);
+                            $collapseId = 'collapse' . $i;
+                            $headingId = 'heading' . $i;
+                            $expanded = ($i === 1) ? 'true' : 'false'; // First item is expanded by default
+                            $showClass = ($i === 1) ? 'show' : ''; // First item is shown by default
+                
+                            echo '<div class="accordion-item">';
+                            echo '  <h2 class="accordion-header" id="' . $headingId . '">';
+                            echo '      <button class="accordion-button" type="button" data-bs-toggle="collapse"';
+                            echo '          data-bs-target="#' . $collapseId . '" aria-expanded="' . $expanded . '" aria-controls="' . $collapseId . '">';
+                            echo $question;
+                            echo '      </button>';
+                            echo '  </h2>';
+                            echo '  <div id="' . $collapseId . '" class="accordion-collapse collapse ' . $showClass . '" aria-labelledby="' . $headingId . '"';
+                            echo '      data-bs-parent="#faqAccordion">';
+                            echo '      <div class="accordion-body">';
+                            echo $answer;
+                            echo '      </div>';
+                            echo '  </div>';
+                            echo '</div>';
+
+                            $i++;
+                        }
+                        echo '</div>';
+                        /*} else {
+                            echo "<p>No FAQs found.</p>";
+                        }*/
+
+                    } catch (PDOException $e) {
+                        echo "<p style='color:red;'>Connection error: " . $e->getMessage() . "</p>";
+                    }
+                }
+
+                displayFaqs($MgtConn);
+                ?>
+                <!-- FAQ Item n+1 -->
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                             What types of electrical services do you offer?
                         </button>
                     </h2>
@@ -58,7 +109,7 @@
                     </div>
                 </div>
 
-                <!-- FAQ Item 2 -->
+                <!-- FAQ Item n+2 -->
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingTwo">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -76,7 +127,7 @@
                     </div>
                 </div>
 
-                <!-- FAQ Item 3 -->
+                <!-- FAQ Item n+3 -->
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingThree">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -93,7 +144,7 @@
                     </div>
                 </div>
 
-                <!-- FAQ Item 4 -->
+                <!-- FAQ Item n+4 -->
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingFour">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -110,7 +161,7 @@
                     </div>
                 </div>
 
-                <!-- FAQ Item 5 -->
+                <!-- FAQ Item n+5 -->
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingFive">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
