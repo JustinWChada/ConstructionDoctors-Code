@@ -40,90 +40,81 @@
         <div class="container">
             <h2 class="text-center">Customer Reviews</h2>
             <div class="row">
-                <div class="col-md-6">
-                    <div class="testimonial-card">
-                        <blockquote class="blockquote">
-                            <p>"Excellent service! They were prompt, professional, and fixed our electrical issue
-                                quickly.
-                                Highly recommend!"</p>
-                            <div class="blockquote-footer">
-                                <img src="../img/img1.jpg" alt="Client 1">
-                                <div class="author-info">
-                                    <span class="author-name">John Doe</span>
-                                    <div class="star-rating">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </blockquote>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="testimonial-card">
-                        <blockquote class="blockquote">
-                            <p>"We had a great experience. Their electrician was knowledgeable, courteous, and explained
-                                everything clearly. We'll definitely use them again."</p>
-                            <div class="blockquote-footer">
-                                <img src="../img/img4.jpg" alt="Client 2">
-                                <div class="author-info">
-                                    <span class="author-name">Jane Smith</span>
-                                    <div class="star-rating">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-half"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </blockquote>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="testimonial-card">
-                        <blockquote class="blockquote">
-                            <p>" went above and beyond to help us with our electrical upgrade. Their prices were
-                                fair, and their work was exceptional. Thank you!"</p>
-                            <div class="blockquote-footer">
-                                <img src="../img/img2.jpg" alt="Client 3">
-                                <div class="author-info">
-                                    <span class="author-name">David Lee</span>
-                                    <div class="star-rating">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </blockquote>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="testimonial-card">
-                        <blockquote class="blockquote">
-                            <p>" were very timely and did great work, quick and friendly too - would happily recommend
-                                to others!"</p>
-                            <div class="blockquote-footer">
-                                <img src="../img/img10.jpg" alt="Client 3">
-                                <div class="author-info">
-                                    <span class="author-name">Adam Jones</span>
-                                    <div class="star-rating">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-half"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </blockquote>
-                    </div>
-                </div>
+                <?php
+
+                require "../queries/db_management.php";
+
+                try {
+                    // Retrieve approved testimonials from the database, including rating
+                    $sql = "SELECT name, comment, image, comment_reply, rating FROM testimonials WHERE is_approved = TRUE ORDER BY submission_date DESC";
+                    $result = $MgtConn->query($sql);
+
+                    if ($result === false) {
+                        throw new Exception("Query failed: " . $MgtConn->error);
+                    }
+
+                    // Output the testimonials
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            $name = htmlspecialchars($row["name"]); // Sanitize for display
+                            $comment = htmlspecialchars($row["comment"]); // Sanitize for display
+                            $image = htmlspecialchars($row["image"]); // Sanitize for display (if any)
+                            $imagePath = htmlspecialchars("../files/uploads/testimonials/$image");
+                            $reply = htmlspecialchars($row["comment_reply"]);   // Sanitize the reply (if any)
+                            $rating = intval($row["rating"]);   // Get the rating as an integer
+                
+
+                            echo '<div class="col-md-6">';
+                            echo '  <div class="testimonial-card">';
+                            echo '    <blockquote class="blockquote">';
+                            echo '      <p>"' . $comment . '"</p>';
+                            echo '      <div class="blockquote-footer">';
+
+
+                            if ($imagePath) {
+                                echo '      <img src="' . $imagePath . '" alt="' . $name . '">';
+                            } else {
+                                echo '      <img src="../img/default_profile.jpg" alt="' . $name . '">';
+                            }
+
+
+                            echo '        <div class="author-info">';
+                            echo '          <span class="author-name">' . $name . '</span>';
+                            echo '          <div class="star-rating">';
+
+                            // Output star rating
+                            for ($i = 0; $i < $rating; $i++) {
+                                echo '            <i class="bi bi-star-fill"></i>';
+                            }
+                            // Fill in the empty stars if needed
+                            for ($i = $rating; $i < 5; $i++) {
+                                echo '            <i class="bi bi-star"></i>'; // Assuming you have a `bi-star` class for empty stars
+                            }
+                            echo '          </div>';
+                            echo '        </div>';
+                            echo '      </div>';
+
+                            // Display the reply if it exists
+                            if (!empty($reply)) {
+                                echo '    <div class="testimonial-reply">';
+                                echo '      <p><strong>Reply:</strong> ' . nl2br($reply) . '</p>'; // Add Reply with nl2br
+                                echo '    </div>';
+                            }
+
+                            echo '    </blockquote>';
+                            echo '  </div>';
+                            echo '</div>';
+                        }
+                    } else {
+                        echo "<p class='fw-2 text-center'>Hi there! We are still building our client base. Check Back soon !.</p>"; // Or display a placeholder message
+                    }
+
+                    $MgtConn->close();
+
+                } catch (Exception $e) {
+                    echo "<p style='color: red;'>Error: " . $e->getMessage() . "</p>";
+                }
+                ?>
             </div>
         </div>
     </section>

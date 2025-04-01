@@ -54,6 +54,18 @@ section {
     height: 120px;
 }
 
+#response {
+    margin-top: 10px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.03); /* Very light background */
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.08); /* Very light border */
+    text-align: center;
+    font-size: 1rem;
+    color: #343a40;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
 #review-form button[type="submit"] {
     background-color: #ffc107;
     color: black;

@@ -2,36 +2,67 @@
     <div class="container">
         <h2 class="section-title text-center">What Our Clients Say</h2>
         <div class="row">
-            <div class="col-md-4">
-                <div class="testimonial-box">
-                    <p>"[Electrician Name] provided excellent service! They were prompt, professional, and fixed our
-                        electrical issue quickly. Highly recommend!"</p>
-                    <div class="testimonial-author">
-                        <img src="../img/img5.jpg" alt="Client 1" class="rounded-circle">
-                        <span>John Doe</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="testimonial-box">
-                    <p>"We had a great experience with [Electrician Name]. Their electrician was knowledgeable,
-                        courteous, and explained everything clearly. We'll definitely use them again."</p>
-                    <div class="testimonial-author">
-                        <img src="../img/img2.jpg" alt="Client 2" class="rounded-circle">
-                        <span>Jane Smith</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="testimonial-box">
-                    <p>"[Electrician Name] went above and beyond to help us with our electrical upgrade. Their prices
-                        were fair, and their work was exceptional. Thank you!"</p>
-                    <div class="testimonial-author">
-                        <img src="../img/img10.jpg" alt="Client 3" class="rounded-circle">
-                        <span>David Lee</span>
-                    </div>
-                </div>
-            </div>
+            <?php
+            // Database credentials
+            $servername = "localhost";
+            $username = "your_username";
+            $password = "your_password";
+            $dbname = "your_database";
+
+            try {
+                require "../queries/db_management.php";
+
+                // Retrieve approved testimonials from the database
+                $sql = "SELECT name, comment, image, comment_reply FROM testimonials WHERE is_approved = TRUE ORDER BY submission_date DESC LIMIT 3";
+                $result = $MgtConn->query($sql);
+
+                if ($result === false) {
+                    throw new Exception("Query failed: " . $MgtConn->error);
+                }
+
+                // Output the testimonials
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $name = htmlspecialchars($row["name"]); // Sanitize for display
+                        $comment = htmlspecialchars($row["comment"]); // Sanitize for display
+                        $image = htmlspecialchars($row["image"]); // Sanitize for display (if any)
+                        $imagePath = htmlspecialchars("../files/uploads/testimonials/$image");
+                        $reply = htmlspecialchars($row["comment_reply"]);   // Sanitize the reply (if any)
+            
+                        echo '<div class="col-md-4">';
+                        echo '  <div class="testimonial-box">';
+                        echo '    <p>"' . $comment . '"</p>';
+                        echo '    <div class="testimonial-author">';
+
+                        if ($imagePath) {
+                            echo '    <img src="' . $imagePath . '" alt="' . $name . '" class="rounded-circle">';
+                        } else {
+                            echo '    <img src="../img/default_profile.jpg" alt="' . $name . '" class="rounded-circle">';
+                        }
+
+                        echo '      <span>' . $name . '</span>';
+                        echo '    </div>';
+
+                        // Display the reply if it exists
+                        if (!empty($reply)) {
+                            echo '    <div class="testimonial-reply mt-1">';
+                            echo '      <p><strong>Reply:</strong> ' . nl2br($reply) . '</p>'; // Add Reply with nl2br
+                            echo '    </div>';
+                        }
+
+                        echo '  </div>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo "<p class='fw-2 text-center'>Hi there! We are still building our client base. Check Back soon !.</p>"; // Or display a placeholder message
+                }
+
+                $MgtConn->close();
+
+            } catch (Exception $e) {
+                echo "<p style='color: red;'>Error: " . $e->getMessage() . "</p>";
+            }
+            ?>
         </div>
         <a href="testimonials" class="btn btn-outline-warning px-2 mt-2 active">View More Testimonials</a>
     </div>

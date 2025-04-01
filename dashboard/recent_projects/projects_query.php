@@ -1,7 +1,7 @@
 <?php
 require "../db_management.php";
 
-$uploadDir = "../../files/uploads/";
+$uploadDir = "../../files/uploads/projects/";
 if (!file_exists($uploadDir)) {
     if (!mkdir($uploadDir, 0777, true)) {
         echo "Failed to create the upload directory: Contact Developer";

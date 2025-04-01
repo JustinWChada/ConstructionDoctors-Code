@@ -11,28 +11,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-// Database credentials
-$servername = "localhost";
-$username = "your_username";
-$password = "your_password";
-$dbname = "your_database";
-
 // Upload directory
-$uploadDir = "uploads/"; // Relative to the PHP script's location
-$uploadPath = __DIR__ . "/" . $uploadDir;
+$uploadDir = "../files/uploads/testimonials/";
+if (!file_exists($uploadDir)) {
+    if (!mkdir($uploadDir, 0777, true)) {
+        echo "Failed to create the upload directory: Contact Developer";
+        exit;
+    }
+}
+
+
 
 try {
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    if ($conn->connect_error) {
-        throw new Exception("Connection failed: " . $conn->connect_error);
-    }
-
     // Get data from the request
-    $name = isset($_POST['name']) ? $conn->real_escape_string($_POST['name']) : '';
+    $name = isset($_POST['name']) ? $MgtConn->real_escape_string($_POST['name']) : '';
     $rating = isset($_POST['rating']) ? intval($_POST['rating']) : 0;
-    $comment = isset($_POST['comment']) ? $conn->real_escape_string($_POST['comment']) : '';
+    $comment = isset($_POST['comment']) ? $MgtConn->real_escape_string($_POST['comment']) : '';
+    $is_approved = 0;
+    $submission_date = date("Y-m-d H:i:s");
 
     // Validate data
     if (empty($name) || $rating < 1 || $rating > 5 || empty($comment)) {
@@ -46,7 +42,7 @@ try {
         $imageTmpName = $_FILES['image']['tmp_name'];
         $imageName = basename($_FILES['image']['name']);
         $imageName = uniqid() . "_" . $imageName; // Generate unique filename
-        $targetFile = $uploadPath . $imageName;
+        $targetFile = $uploadDir . $imageName;
         $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
         // Check if image file is a actual image
@@ -79,11 +75,11 @@ try {
 
 
     // Prepare and bind SQL statement
-    $stmt = $conn->prepare("INSERT INTO testimonials (name, rating, comment, image_path) VALUES (?, ?, ?, ?)");
+    $stmt = $MgtConn->prepare("INSERT INTO testimonials (name,rating,comment,image,submission_date,is_approved) VALUES (?, ?, ?, ?, ? ,?)");
     if ($stmt === false) {
-        throw new Exception("Prepare failed: " . $conn->error);
+        throw new Exception("Prepare failed: " . $MgtConn->error);
     }
-    $stmt->bind_param("siss", $name, $rating, $comment, $imagePath); // s=string, i=integer
+    $stmt->bind_param("sisssi", $name, $rating, $comment, $imageName, $submission_date, $is_approved); // s=string, i=integer
 
     // Execute the statement
     if ($stmt->execute()) {
@@ -94,7 +90,7 @@ try {
     }
 
     $stmt->close();
-    $conn->close();
+    $MgtConn->close();
 
 } catch (Exception $e) {
     $response = ['success' => false, 'message' => $e->getMessage()];
