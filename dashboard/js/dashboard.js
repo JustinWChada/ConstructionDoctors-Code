@@ -67,6 +67,22 @@ function displayQuotes() {
   });
 }
 
+function displayTestimonials() {
+  $.ajax({
+    url: "testimonials/show_testimonials.php",
+    method: "POST",
+    data: { action: "get_testimonials" },
+    success: function (data) {
+      $("#dashboardPlane").html(data); //Correct way to set the HTML content
+    },
+    error: function (xhr, status, error) {
+      // Add error handling
+      console.error("Error fetching statistics:", status, error);
+      $("#dashboardPlane").html("Error loading testimonials.");
+    },
+  });
+}
+
 /**
  * Function to get the value of a specific URL parameter.
  *
@@ -103,6 +119,7 @@ function getUrlParameter(parameterName, url) {
 const messages = getUrlParameter("messages");
 const statistics = getUrlParameter("statistics");
 const quotes = getUrlParameter("quotes");
+const testimonials = getUrlParameter("testimonials");
 
 if (messages !== null) {
   displayMessages();
@@ -110,6 +127,8 @@ if (messages !== null) {
   displayStatistic();
 } else if (quotes !== null) {
   displayQuotes();
+} else if (testimonials !== null) {
+  displayTestimonials();
 } else {
   displayStatistic();
 }
