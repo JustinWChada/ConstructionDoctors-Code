@@ -56,8 +56,8 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : ''; // Optional
                                 Messages
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
+                        <li class="nav-item" onclick="displayQuotes()">
+                            <a class="nav-link" href="?quotes">
                                 <i class="bi bi-cash-coin"></i>
                                 Quotes
                             </a>

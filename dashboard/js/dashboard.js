@@ -51,6 +51,22 @@ function displayMessages() {
   });
 }
 
+function displayQuotes() {
+  $.ajax({
+    url: "quotes/show_quotes.php",
+    method: "POST",
+    data: { action: "get_quotes" },
+    success: function (data) {
+      $("#dashboardPlane").html(data); //Correct way to set the HTML content
+    },
+    error: function (xhr, status, error) {
+      // Add error handling
+      console.error("Error fetching statistics:", status, error);
+      $("#dashboardPlane").html("Error loading quotes.");
+    },
+  });
+}
+
 /**
  * Function to get the value of a specific URL parameter.
  *
@@ -86,11 +102,14 @@ function getUrlParameter(parameterName, url) {
 // Get the value of the 'id' parameter from the current URL:
 const messages = getUrlParameter("messages");
 const statistics = getUrlParameter("statistics");
+const quotes = getUrlParameter("quotes");
 
 if (messages !== null) {
   displayMessages();
 } else if (messages !== null) {
   displayStatistic();
+} else if (quotes !== null) {
+  displayQuotes();
 } else {
   displayStatistic();
 }
