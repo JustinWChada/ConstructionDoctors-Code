@@ -68,7 +68,7 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : ''; // Optional
                         <li class="nav-item" aria-disabled="true">
                             <a class="nav-link" href="#">
                                 <i class="bi bi-time"></i>
-                                <span id="dashboardTime"></span>
+                                <div id="dashboardTime" class="text-center fw-bold text-warning"></div>
                             </a>
                         </li>
                     </ul>
