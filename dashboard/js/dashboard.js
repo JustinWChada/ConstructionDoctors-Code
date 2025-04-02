@@ -45,7 +45,7 @@ function displayMessages() {
     },
     error: function (xhr, status, error) {
       // Add error handling
-      console.error("Error fetching statistics:", status, error);
+      console.error("Error fetching messages:", status, error);
       $("#dashboardPlane").html("Error loading messages.");
     },
   });
@@ -61,7 +61,7 @@ function displayQuotes() {
     },
     error: function (xhr, status, error) {
       // Add error handling
-      console.error("Error fetching statistics:", status, error);
+      console.error("Error fetching quotes:", status, error);
       $("#dashboardPlane").html("Error loading quotes.");
     },
   });
@@ -77,8 +77,24 @@ function displayTestimonials() {
     },
     error: function (xhr, status, error) {
       // Add error handling
-      console.error("Error fetching statistics:", status, error);
+      console.error("Error fetching testimonials:", status, error);
       $("#dashboardPlane").html("Error loading testimonials.");
+    },
+  });
+}
+
+function displayFAQs() {
+  $.ajax({
+    url: "faqs/add_faqs.php",
+    method: "POST",
+    data: { action: "get_faqs" },
+    success: function (data) {
+      $("#dashboardPlane").html(data); //Correct way to set the HTML content
+    },
+    error: function (xhr, status, error) {
+      // Add error handling
+      console.error("Error fetching faqs:", status, error);
+      $("#dashboardPlane").html("Error loading faqs.");
     },
   });
 }
@@ -120,6 +136,7 @@ const messages = getUrlParameter("messages");
 const statistics = getUrlParameter("statistics");
 const quotes = getUrlParameter("quotes");
 const testimonials = getUrlParameter("testimonials");
+const faqs = getUrlParameter("faqs");
 
 if (messages !== null) {
   displayMessages();
@@ -129,6 +146,8 @@ if (messages !== null) {
   displayQuotes();
 } else if (testimonials !== null) {
   displayTestimonials();
+} else if (faqs !== null) {
+  displayFAQs();
 } else {
   displayStatistic();
 }

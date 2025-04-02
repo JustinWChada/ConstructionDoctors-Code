@@ -2,121 +2,127 @@
 
 <h1 class="faqs-section-title">Admin Side - FAQs</h1>
 
+<form method="post" action="faqs/faqs_query.php" enctype="multipart/form-data">
+    <label for="faq_question">Question:</label>
+    <input type="text" id="faq_question" name="faq_question" required><br><br>
+
+    <label for="faq_answer">Answer:</label>
+    <textarea id="faq_answer" name="faq_answer" required></textarea><br><br>
+
+    <button type="submit" name="add_faq">Add FAQ</button>
+</form>
+
 <?php
-require "db_management.php";
+
+//some of the code below is commented out and duplicated in the faqs_query.php file: I left it here in case an errors arise. but as for future cases i will clean
+//out the files. Or maybe i should do now 
+require "../db_management.php";
 
 
-// Function to generate a unique token
-function generateFormToken()
-{
-    return bin2hex(random_bytes(32)); // Generate a 64-character hexadecimal string
-}
+// // Function to generate a unique token
+// function generateFormToken()
+// {
+//     return bin2hex(random_bytes(32)); // Generate a 64-character hexadecimal string
+// }
 
-// Function to check if the token is valid
-function isTokenValid($token)
-{
-    if (!isset($_SESSION['form_token'])) {
-        return false; // No token in session
-    }
+// // Function to check if the token is valid
+// function isTokenValid($token)
+// {
+//     if (!isset($_SESSION['form_token'])) {
+//         return false; // No token in session
+//     }
 
-    return hash_equals($_SESSION['form_token'], $token); // Compare tokens safely
-}
+//     return hash_equals($_SESSION['form_token'], $token); // Compare tokens safely
+// }
 
 // --- DELETE FAQ ---
 // function deleteFaq($MgtConn)
 // {
-require "db_management.php";
-if (isset($_GET['delete_faq']) && is_numeric($_GET['delete_faq'])) {
-    $faq_id = intval($_GET['delete_faq']);
-    //$d_id = PDO::PARAM_INT;
 
-    try {
-        $sql = "DELETE FROM faqs WHERE faq_id = ?";
-        $stmt = $MgtConn->prepare($sql);
-        $stmt->bind_param('i', $faq_id);
+// if (isset($_GET['delete_faq']) && is_numeric($_GET['delete_faq'])) {
+//     $faq_id = intval($_GET['delete_faq']);
+//     //$d_id = PDO::PARAM_INT;
 
-        if ($stmt->execute()) {
-            echo "<p style='color:green;'>FAQ deleted successfully.</p>";
-            // Optionally redirect to refresh the FAQ list.
-            header("Location: " . $_SERVER['PHP_SELF']);
-            exit();
+//     try {
+//         $sql = "DELETE FROM faqs WHERE faq_id = ?";
+//         $stmt = $MgtConn->prepare($sql);
+//         $stmt->bind_param('i', $faq_id);
 
-        } else {
-            echo "<p style='color:red;'>Error deleting FAQ: " . $stmt->error . "</p>";
-        }
+//         if ($stmt->execute()) {
+//             echo "<p style='color:green;'>FAQ deleted successfully.</p>";
+//             // Optionally redirect to refresh the FAQ list.
+//             header("Location: " . $_SERVER['PHP_SELF']);
+//             exit();
 
-    } catch (PDOException $e) {
-        echo "<p style='color:red;'>Connection error: " . $e->getMessage() . "</p>";
-    }
-}
+//         } else {
+//             echo "<p style='color:red;'>Error deleting FAQ: " . $stmt->error . "</p>";
+//         }
+
+//     } catch (PDOException $e) {
+//         echo "<p style='color:red;'>Connection error: " . $e->getMessage() . "</p>";
+//     }
+// }
 //}
 
 // --- ADD FAQ WITH INPUT FIELDS ---
-function addFaqForm($MgtConn)
-{
+// function addFaqForm($MgtConn)
+// {
 
-    // Start session at the top of the script
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
+//     // // Start session at the top of the script
+//     // if (session_status() === PHP_SESSION_NONE) {
+//     //     session_start();
+//     // }
 
-    // Generate a new token if one doesn't exist
-    if (!isset($_SESSION['form_token'])) {
-        $_SESSION['form_token'] = generateFormToken();
-    }
+//     // // Generate a new token if one doesn't exist
+//     // if (!isset($_SESSION['form_token'])) {
+//     //     $_SESSION['form_token'] = generateFormToken();
+//     // }
 
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_faq'])) {
-        $question = isset($_POST['faq_question']) ? trim($_POST['faq_question']) : '';
-        $answer = isset($_POST['faq_answer']) ? trim($_POST['faq_answer']) : '';
+//     // if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_faq'])) {
+//     //     $question = isset($_POST['faq_question']) ? trim($_POST['faq_question']) : '';
+//     //     $answer = isset($_POST['faq_answer']) ? trim($_POST['faq_answer']) : '';
 
-        if (empty($question) || empty($answer)) {
-            echo "<p style='color:red;' class='text-center fw-bold'>Question and Answer are required.</p>";
-        } else {
+//     //     if (empty($question) || empty($answer)) {
+//     //         echo "<p style='color:red;' class='text-center fw-bold'>Question and Answer are required.</p>";
+//     //     } else {
 
-            try {
-                $sql = "INSERT INTO faqs (question, answer, created_at) VALUES (?, ?,NOW())";
-                $stmt = $MgtConn->prepare($sql);
-                $stmt->bind_param('ss', $question, $answer);
-                ;
+//     //         try {
+//     //             $sql = "INSERT INTO faqs (question, answer, created_at) VALUES (?, ?,NOW())";
+//     //             $stmt = $MgtConn->prepare($sql);
+//     //             $stmt->bind_param('ss', $question, $answer);
+//     //             ;
 
-                if ($stmt->execute()) {
-                    echo "<p style='color:green;' class='text-center fw-bold'>FAQ added successfully.</p>";
-                    //Generate a new token AFTER successful submission
-                    $_SESSION['form_token'] = generateFormToken(); // VERY IMPORTANT: New token on success
+//     //             if ($stmt->execute()) {
+//     //                 echo "<p style='color:green;' class='text-center fw-bold'>FAQ added successfully.</p>";
+//     //                 //Generate a new token AFTER successful submission
+//     //                 //$_SESSION['form_token'] = generateFormToken(); // VERY IMPORTANT: New token on success
 
-                    // Redirect to prevent accidental resubmission on refresh
-                    header("Location: " . $_SERVER['PHP_SELF']);
-                    exit(); // Exit after redirect
+//     //                 // Redirect to prevent accidental resubmission on refresh
+//     //                 header("Location: " . $_SERVER['PHP_SELF']);
+//     //                 exit(); // Exit after redirect
 
-                } else {
-                    echo "<p style='color:red;' class='text-center fw-bold'>Error adding FAQ: " . $stmt->errorInfo()[2] . "</p>";
-                }
+//     //             } else {
+//     //                 echo "<p style='color:red;' class='text-center fw-bold'>Error adding FAQ: " . $stmt->error . "</p>";
+//     //             }
 
-            } catch (PDOException $e) {
-                echo "<p style='color:red;' class='text-center fw-bold'>Connection error: " . $e->getMessage() . "</p>";
-            }
-        }
-    }
-    ?>
+//     //         } catch (PDOException $e) {
+//     //             echo "<p style='color:red;' class='text-center fw-bold'>Connection error: " . $e->getMessage() . "</p>";
+//     //         }
+//     //     }
+//     // }
+//     ?>
 
-    <form method="post">
-        <label for="faq_question">Question:</label>
-        <input type="text" id="faq_question" name="faq_question" required><br><br>
 
-        <label for="faq_answer">Answer:</label>
-        <textarea id="faq_answer" name="faq_answer" required></textarea><br><br>
 
-        <button type="submit" name="add_faq">Add FAQ</button>
-    </form>
 
-    <?php
-}
+<?php
+// }
 
 // --- RETRIEVE FAQs ---
 function getFaqs($MgtConn)
 {
-    require "db_management.php";
+    require "../db_management.php";
 
     try {
         $sql = "SELECT faq_id, question, answer, created_at FROM faqs ORDER BY created_at DESC";
@@ -136,7 +142,7 @@ function getFaqs($MgtConn)
             echo "<td>" . htmlspecialchars($row["question"]) . "</td>";
             echo "<td>" . htmlspecialchars($row["answer"]) . "</td>";
             echo "<td>" . htmlspecialchars($row["created_at"]) . "</td>";
-            echo "<td><a href='?delete_faq=" . htmlspecialchars($row["faq_id"]) . "'>Delete</a></td>";
+            echo "<td><a href='faqs/faqs_query?delete_faq=" . htmlspecialchars($row["faq_id"]) . "&faqs'>Delete</a></td>";
             echo "</tr>";
         }
         echo "</tbody>";
@@ -160,7 +166,7 @@ function getFaqs($MgtConn)
 }
 
 
-addFaqForm($MgtConn);
+// addFaqForm($MgtConn);
 getFaqs($MgtConn);
 
 

@@ -52,7 +52,7 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : ''; // Optional
                         </li>
                         <li class="nav-item" onclick="displayMessages()">
                             <a class="nav-link" href="?messages">
-                                <i class="bi bi-question-circle-fill"></i>
+                                <i class="bi bi-chat-dots-fill"></i>
                                 Messages
                             </a>
                         </li>
@@ -68,10 +68,10 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : ''; // Optional
                                 Testimonials
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="bi bi-envelope-fill"></i>
-                                Contact Us
+                        <li class="nav-item" onclick="displayFAQs()">
+                            <a class="nav-link" href="?faqs">
+                                <i class="bi bi-question-circle-fill"></i>
+                                FAQs
                             </a>
                         </li>
                         <li class="nav-item">
@@ -99,7 +99,7 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : ''; // Optional
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/dashboard.js"></script>
 </body>

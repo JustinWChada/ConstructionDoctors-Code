@@ -46,7 +46,7 @@ try {
             echo "<p><strong>Submitted:</strong> " . $submissionDate . "</p>";
 
             // Approval form
-            echo "<form method='post' action='testimonials/show_testimonials_query.php' enctype='multipart/formdata'>";
+            echo "<form method='post' action='testimonials/show_testimonials_query.php' enctype='multipart/form-data'>";
             echo "<input type='hidden' name='testimonial_id' value='" . $testimonialId . "'>";
 
             if ($isApproved) {
@@ -67,7 +67,7 @@ try {
             echo '  <div class="modal-content">';
             echo '    <span class="close" onclick="closeModal(' . $testimonialId . ')">×</span>';
             echo '    <h2>Reply to Testimonial</h2>';
-            echo '    <form method="post" action="testimonials/show_testimonials_query.php" enctype="multipart/formdata">';
+            echo '    <form method="post" action="testimonials/show_testimonials_query.php" enctype="multipart/form-data">';
             echo '      <input type="hidden" name="action" value="save_reply">';
             echo '      <input type="hidden" name="testimonial_id" value="' . $testimonialId . '">';
             echo '      <textarea name="reply" rows="5">' . $comment_reply . '</textarea><br>'; // Display existing reply

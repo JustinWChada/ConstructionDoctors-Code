@@ -1,5 +1,5 @@
 <?php
-require "db_management.php";
+require "../db_management.php";
 // --- ADD FAQ ---
 function addFaq($MgtConn)
 {
