@@ -46,7 +46,7 @@
 
                 try {
                     // Retrieve approved testimonials from the database, including rating
-                    $sql = "SELECT name, comment, image, comment_reply, rating FROM testimonials WHERE is_approved = TRUE ORDER BY submission_date DESC";
+                    $sql = "SELECT name, comment, image, comment_reply, rating FROM testimonials WHERE is_approved = TRUE ORDER BY created_at DESC";
                     $result = $MgtConn->query($sql);
 
                     if ($result === false) {

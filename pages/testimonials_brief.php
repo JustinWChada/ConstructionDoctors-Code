@@ -3,17 +3,12 @@
         <h2 class="section-title text-center">What Our Clients Say</h2>
         <div class="row">
             <?php
-            // Database credentials
-            $servername = "localhost";
-            $username = "your_username";
-            $password = "your_password";
-            $dbname = "your_database";
 
             try {
                 require "../queries/db_management.php";
 
                 // Retrieve approved testimonials from the database
-                $sql = "SELECT name, comment, image, comment_reply FROM testimonials WHERE is_approved = TRUE ORDER BY submission_date DESC LIMIT 3";
+                $sql = "SELECT name, comment, image, comment_reply FROM testimonials WHERE is_approved = TRUE ORDER BY created_at DESC LIMIT 3";
                 $result = $MgtConn->query($sql);
 
                 if ($result === false) {

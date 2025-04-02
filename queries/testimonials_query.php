@@ -28,7 +28,7 @@ try {
     $rating = isset($_POST['rating']) ? intval($_POST['rating']) : 0;
     $comment = isset($_POST['comment']) ? $MgtConn->real_escape_string($_POST['comment']) : '';
     $is_approved = 0;
-    $submission_date = date("Y-m-d H:i:s");
+    $created_at = date("Y-m-d H:i:s");
 
     // Validate data
     if (empty($name) || $rating < 1 || $rating > 5 || empty($comment)) {
@@ -75,11 +75,11 @@ try {
 
 
     // Prepare and bind SQL statement
-    $stmt = $MgtConn->prepare("INSERT INTO testimonials (name,rating,comment,image,submission_date,is_approved) VALUES (?, ?, ?, ?, ? ,?)");
+    $stmt = $MgtConn->prepare("INSERT INTO testimonials (name,rating,comment,image,created_at,is_approved) VALUES (?, ?, ?, ?, ? ,?)");
     if ($stmt === false) {
         throw new Exception("Prepare failed: " . $MgtConn->error);
     }
-    $stmt->bind_param("sisssi", $name, $rating, $comment, $imageName, $submission_date, $is_approved); // s=string, i=integer
+    $stmt->bind_param("sisssi", $name, $rating, $comment, $imageName, $created_at, $is_approved); // s=string, i=integer
 
     // Execute the statement
     if ($stmt->execute()) {

@@ -23,7 +23,7 @@ try {
     }
 
     // Retrieve testimonials from the database
-    $sql = "SELECT * FROM testimonials ORDER BY submission_date DESC";  // Order by date
+    $sql = "SELECT * FROM testimonials ORDER BY created_at DESC";  // Order by date
     $result = $MgtConn->query($sql);
 
     if ($result === false) {
@@ -79,7 +79,7 @@ try {
             $image = htmlspecialchars($row["image"]); // Escape for display
             $imagePath = htmlspecialchars("../files/uploads/testimonials/$image");
             $isApproved = (bool) $row["is_approved"]; // Cast to boolean
-            $submissionDate = $row["submission_date"];
+            $submissionDate = $row["created_at"];
 
             echo "<div class='testimonial-block'>";
 
