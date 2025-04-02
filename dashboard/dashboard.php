@@ -22,7 +22,16 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : ''; // Optional
     <style></style>
 </head>
 
-<body>
+<body onload="$('#spinner').hide();">
+    <!-- Spinner Start
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+        hidden>
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span>CDoc</span>
+        </div>
+    </div>-->
+
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
@@ -30,15 +39,21 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : ''; // Optional
                 <div class="position-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link active" href="#account">
                                 <i class="bi bi-person-circle"></i>
                                 <?php echo $firstName ?>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
+                        <li class="nav-item" onclick="displayStatistic()">
+                            <a class="nav-link" href="?statistics">
+                                <i class="bi bi-speedometer"></i>
+                                Statistics
+                            </a>
+                        </li>
+                        <li class="nav-item" onclick="displayMessages()">
+                            <a class="nav-link" href="?messages">
                                 <i class="bi bi-question-circle-fill"></i>
-                                Enquiries
+                                Messages
                             </a>
                         </li>
                         <li class="nav-item">
@@ -65,7 +80,7 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : ''; // Optional
                                 Settings
                             </a>
                         </li>
-                        <li class="nav-item" aria-disabled="true">
+                        <li class="nav-item" disabled="true">
                             <a class="nav-link" href="#">
                                 <i class="bi bi-time"></i>
                                 <div id="dashboardTime" class="text-center fw-bold text-warning"></div>
@@ -76,18 +91,17 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : ''; // Optional
             </nav>
 
             <!-- Main Content -->
-            <main class="col-md-9 ms-sm-auto col-lg-10 p-0">
-                <?php include "statistics.php"; ?>
+            <main class="col-md-9 ms-sm-auto col-lg-10 p-0" id="dashboardPlane">
+
             </main>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
-    <script src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="dashboard.js"></script>
+        </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/dashboard.js"></script>
 </body>
 
 </html>

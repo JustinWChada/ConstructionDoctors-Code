@@ -22,17 +22,5 @@ function updateDashboard() {
   }
 }
 
-setInterval(updateDashboard, 10000); // Change every 10 seconds (10000 ms)
-
-function updateTime() {
-  const timeElement = document.getElementById("dashboardTime");
-  const now = new Date();
-  const hours = String(now.getHours()).padStart(2, "0");
-  const minutes = String(now.getMinutes()).padStart(2, "0");
-  const seconds = String(now.getSeconds()).padStart(2, "0");
-  timeElement.textContent = `${hours}:${minutes}:${seconds}`;
-}
-
 updateDashboard();
-updateTime();
-setInterval(updateTime, 1000);
+setInterval(updateDashboard, 10000); // Change every 10 seconds (10000 ms)

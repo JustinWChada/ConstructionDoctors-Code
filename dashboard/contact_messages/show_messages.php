@@ -1,30 +1,31 @@
 <?php
-require "db_management.php";
+require "../db_management.php";
 
-// Function to mark message as "done" (set contact_status to 1)
-function markAsDone($MgtConn, $id)
-{
-    try {
-        $stmt = $MgtConn->prepare("UPDATE contact_messages SET contact_status = 1 WHERE id = ?");
-        $stmt->bind_param('i', $id);
-        $stmt->execute();
-        return true; // Success
-    } catch (PDOException $e) {
-        error_log("Error marking as done: " . $e->getMessage()); // Log the error
-        return false; // Failure
-    }
-}
+// // Function to mark message as "done" (set contact_status to 1)
+// function markAsDone($MgtConn, $id)
+// {
+//     try {
+//         $stmt = $MgtConn->prepare("UPDATE contact_messages SET contact_status = 1 WHERE id = ?");
+//         $stmt->bind_param('i', $id);
+//         $stmt->execute();
+//         return true; // Success
+//     } catch (PDOException $e) {
+//         error_log("Error marking as done: " . $e->getMessage()); // Log the error
+//         return false; // Failure
+//     }
+// }
 
-// Handle "Mark as Done" action
-if (isset($_GET['mark_done'])) {
-    $id_to_mark = $_GET['mark_done'];
-    if (markAsDone($MgtConn, $id_to_mark)) {
-        header("Location: " . $_SERVER['PHP_SELF']); // Refresh the page
-        exit();
-    } else {
-        echo "<div class='alert alert-danger' role='alert'>Failed to mark message as done. Please check the logs.</div>"; // Display error to user
-    }
-}
+// // Handle "Mark as Done" action
+// if (isset($_GET['mark_done'])) {
+//     $id_to_mark = $_GET['mark_done'];
+//     echo $id_to_mark;
+//     if (markAsDone($MgtConn, $id_to_mark)) {
+//         header("Location: " . $_SERVER['PHP_SELF']); // Refresh the page
+//         exit();
+//     } else {
+//         echo "<div class='alert alert-danger' role='alert'>Failed to mark message as done. Please check the logs.</div>"; // Display error to user
+//     }
+// }
 
 // Retrieve messages with contact_status = 0
 try {
@@ -63,12 +64,13 @@ try {
             <?php if ($message['contact_phone_number']): ?>
             <a href="tel:<?= $phone ?>" target="_blank" class="btn btn-sm btn-outline-dark" title="Call"><i
                     class="bi bi-phone"></i></a>
-            <a href="https://wa.me/<?= $phone ?>" class="btn btn-sm btn-outline-success" target="_blank"
+            <a href="https://wa.me/<?= substr($phone, 1) ?>" class="btn btn-sm btn-outline-success" target="_blank"
                 title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
             <?php endif; ?>
 
             <!-- Mark as Done Button -->
-            <a href="?mark_done=<?= $message['id'] ?>" class="btn btn-sm btn-outline-danger mark-done-button"
+            <a href="contact_messages/show_messages_query?messages&mark_done=<?= $message['id'] ?>"
+                class="btn btn-sm btn-outline-danger mark-done-button"
                 onclick="return confirm('Mark this message as done?')" title="Mark as Done"><i class="bi bi-trash"></i>
                 Remove</a>
         </div>
