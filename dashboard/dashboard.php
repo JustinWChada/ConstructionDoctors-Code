@@ -38,8 +38,8 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : ''; // Optional
             <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
                 <div class="position-sticky">
                     <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#account">
+                        <li class="nav-item" onclick="displayProfile('<?= $userId ?>')">
+                            <a class="nav-link active" href="?profile">
                                 <i class="bi bi-person-circle"></i>
                                 <?php echo $firstName ?>
                             </a>
@@ -80,7 +80,7 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : ''; // Optional
                                 Projects
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" hidden>
                             <a class="nav-link" href="#">
                                 <i class="bi bi-gear-fill"></i>
                                 Settings
@@ -90,6 +90,12 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : ''; // Optional
                             <a class="nav-link" href="#">
                                 <i class="bi bi-time"></i>
                                 <div id="dashboardTime" class="text-center fw-bold text-warning"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item bg-danger text-light text-center">
+                            <a class="nav-link" href="?logout">
+                                <i class="bi bi-box-arrow-left"></i>
+                                Sign Out
                             </a>
                         </li>
                     </ul>

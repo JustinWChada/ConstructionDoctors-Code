@@ -115,6 +115,22 @@ function displayProjects() {
   });
 }
 
+function displayProfile(user) {
+  $.ajax({
+    url: "profile/show_profile.php",
+    method: "GET",
+    data: { action: "get_profile", id: user },
+    success: function (data) {
+      $("#dashboardPlane").html(data);
+    },
+    error: function (xhr, status, error) {
+      // Add error handling
+      console.error("Error fetching profile:", status, error);
+      $("#dashboardPlane").html("Error loading profile.");
+    },
+  });
+}
+
 /**
  * Function to get the value of a specific URL parameter.
  *
@@ -154,6 +170,7 @@ const quotes = getUrlParameter("quotes");
 const testimonials = getUrlParameter("testimonials");
 const faqs = getUrlParameter("faqs");
 const projects = getUrlParameter("projects");
+const profile = getUrlParameter("profile");
 
 if (messages !== null) {
   displayMessages();
@@ -167,6 +184,8 @@ if (messages !== null) {
   displayFAQs();
 } else if (projects !== null) {
   displayProjects();
+} else if (profile !== null) {
+  displayProfile();
 } else {
   displayStatistic();
 }
