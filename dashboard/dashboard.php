@@ -1,9 +1,10 @@
 <?php
 //accessing data
 // Access user data from the session
-session_start();
+include "session_cleanup.php";
+//session_start();
 
-$userId = $_SESSION['user_id'];
+$userId = $_SESSION['user_id'] or header("location: ../pages/signin");
 $firstName = isset($_SESSION['first_name']) ? $_SESSION['first_name'] : 'User'; // Optional
 $email = isset($_SESSION['email']) ? $_SESSION['email'] : ''; // Optional
 
@@ -93,7 +94,7 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : ''; // Optional
                             </a>
                         </li>
                         <li class="nav-item bg-danger text-light text-center">
-                            <a class="nav-link" href="?logout">
+                            <a class="nav-link" href="?signout">
                                 <i class="bi bi-box-arrow-left"></i>
                                 Sign Out
                             </a>

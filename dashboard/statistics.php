@@ -66,7 +66,7 @@ function getTotalCounts($table, $sql_today)
                     <p class="card-text placeholder-data">New Messages:
                         <strong><?php echo $contact_messages[1]; ?></strong>
                     </p>
-                    <a href="#" class="btn btn-outline-warning">View All Messages</a>
+                    <a href="?messages" class="btn btn-outline-warning">View All Messages</a>
                 </div>
             </div>
         </div>
@@ -89,7 +89,7 @@ function getTotalCounts($table, $sql_today)
                     <p class="card-text placeholder-data">Pending Quotes:
                         <strong><?php echo $quotes[0] ?></strong>
                     </p>
-                    <a href="#" class="btn btn-outline-warning">View All Quotes</a>
+                    <a href="?quotes" class="btn btn-outline-warning">View All Quotes</a>
                 </div>
             </div>
         </div>
@@ -113,7 +113,7 @@ function getTotalCounts($table, $sql_today)
                     <p class="card-text placeholder-data">Total Week Projects:
                         <strong><?php echo $projects[1] ?></strong>
                     </p>
-                    <a href="#" class="btn btn-outline-primary">View All Projects</a>
+                    <a href="?projects" class="btn btn-outline-primary">View All Projects</a>
                 </div>
             </div>
         </div>
@@ -136,7 +136,7 @@ function getTotalCounts($table, $sql_today)
                     <p class="card-text placeholder-data">New Testimonials:
                         <strong><?php echo $testimonials[1]; ?></strong>
                     </p>
-                    <a href="#" class="btn btn-outline-primary">View All Testimonials</a>
+                    <a href="?testimonials" class="btn btn-outline-primary">View All Testimonials</a>
                 </div>
             </div>
         </div>

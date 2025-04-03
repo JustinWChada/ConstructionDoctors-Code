@@ -12,7 +12,7 @@ $email = $_POST['email'];
 $password = $_POST['password'];
 $created = date("Y-m-d H:i:s");
 $updated = date("Y-m-d H:i:s");
-$true = 1; // Or 0 for false;  if using default values, no need for this
+$false = 0; // Or 0 for false;  if using default values, no need for this
 
 // Validate data (add more validation as needed)
 if (empty($name) || empty($email) || empty($password)) {
@@ -60,7 +60,7 @@ if ($stmt === false) {
     exit;
 }
 
-$stmt->bind_param("sssssi", $hashed_password, $email, $name, $created, $updated, $true); // Changed to ssssi if int
+$stmt->bind_param("sssssi", $hashed_password, $email, $name, $created, $updated, $false); // Changed to ssssi if int
 
 if ($stmt->execute()) {
     $response = array('success' => true, 'message' => 'User registered successfully.');

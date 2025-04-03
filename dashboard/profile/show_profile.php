@@ -60,8 +60,9 @@ if (!empty($userId) && is_numeric($userId)) {
         <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>">
 
         <label for="user_password">Password:</label>
-        <input type="text" id="user_password" name="user_password"
-            value="<?php echo htmlspecialchars($user_password); ?>">
+        <input type="text" id="user_password_old" name="user_password_old"
+            value="<?php echo htmlspecialchars($user_password); ?>" placeholder="Enter new password" hidden readonly>
+        <input type="text" id="user_password" name="user_password" value="" placeholder="Enter new password">
 
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>">

@@ -41,6 +41,7 @@ if ($result->num_rows === 1) {
         $_SESSION['user_id'] = $row['user_id']; // Store user_id in the session
         $_SESSION['first_name'] = $row['first_name']; // Store first_name (optional)
         $_SESSION['email'] = $email; // Store email in the session (optional)
+        $_SESSION['last_activity'] = time();
         $response = array('success' => true, 'message' => 'Sign-in successful.');
 
     } else {

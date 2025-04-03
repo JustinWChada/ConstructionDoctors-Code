@@ -131,6 +131,22 @@ function displayProfile(user) {
   });
 }
 
+function signOut() {
+  let confirmation = confirm("Are you sure you want to log out ?");
+  if (!confirmation) {
+    window.location.href = "?statistics";
+    return;
+  }
+
+  $("#dashboardPlane").html(
+    "<h4 class='text-center text-danger fw-bold mt-4'>Signing Out ... !</h4>"
+  );
+
+  setTimeout(() => {
+    window.location.href = "../queries/session_end.php";
+  }, 3000);
+}
+
 /**
  * Function to get the value of a specific URL parameter.
  *
@@ -171,6 +187,7 @@ const testimonials = getUrlParameter("testimonials");
 const faqs = getUrlParameter("faqs");
 const projects = getUrlParameter("projects");
 const profile = getUrlParameter("profile");
+const signout = getUrlParameter("signout");
 
 if (messages !== null) {
   displayMessages();
@@ -186,6 +203,8 @@ if (messages !== null) {
   displayProjects();
 } else if (profile !== null) {
   displayProfile();
+} else if (signout !== null) {
+  signOut();
 } else {
   displayStatistic();
 }
