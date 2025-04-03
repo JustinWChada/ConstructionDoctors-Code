@@ -74,6 +74,12 @@ $email = isset($_SESSION['email']) ? $_SESSION['email'] : ''; // Optional
                                 FAQs
                             </a>
                         </li>
+                        <li class="nav-item" onclick="displayProjects()">
+                            <a class="nav-link" href="?projects">
+                                <i class="bi bi-tools"></i>
+                                Projects
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <i class="bi bi-gear-fill"></i>

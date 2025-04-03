@@ -5,7 +5,7 @@
     <br>
 
     <?php
-    require "db_management.php";
+    require "../db_management.php";
 
     try {
         // Fetch all projects

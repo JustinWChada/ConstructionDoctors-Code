@@ -22,7 +22,7 @@ $(document).ready(function () {
 
     $.ajax({
       url: "recent_projects/projects_query.php",
-      type: "POST",
+      method: "POST",
       data: $(this).serialize(),
       success: function (response) {
         alert(response);

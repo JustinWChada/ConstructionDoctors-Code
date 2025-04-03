@@ -25,7 +25,7 @@ function displayStatistic() {
     method: "POST",
     data: { action: "get_statistics" },
     success: function (data) {
-      $("#dashboardPlane").html(data); //Correct way to set the HTML content
+      $("#dashboardPlane").html(data);
     },
     error: function (xhr, status, error) {
       // Add error handling
@@ -41,7 +41,7 @@ function displayMessages() {
     method: "POST",
     data: { action: "get_messages" },
     success: function (data) {
-      $("#dashboardPlane").html(data); //Correct way to set the HTML content
+      $("#dashboardPlane").html(data);
     },
     error: function (xhr, status, error) {
       // Add error handling
@@ -57,7 +57,7 @@ function displayQuotes() {
     method: "POST",
     data: { action: "get_quotes" },
     success: function (data) {
-      $("#dashboardPlane").html(data); //Correct way to set the HTML content
+      $("#dashboardPlane").html(data);
     },
     error: function (xhr, status, error) {
       // Add error handling
@@ -73,7 +73,7 @@ function displayTestimonials() {
     method: "POST",
     data: { action: "get_testimonials" },
     success: function (data) {
-      $("#dashboardPlane").html(data); //Correct way to set the HTML content
+      $("#dashboardPlane").html(data);
     },
     error: function (xhr, status, error) {
       // Add error handling
@@ -89,12 +89,28 @@ function displayFAQs() {
     method: "POST",
     data: { action: "get_faqs" },
     success: function (data) {
-      $("#dashboardPlane").html(data); //Correct way to set the HTML content
+      $("#dashboardPlane").html(data);
     },
     error: function (xhr, status, error) {
       // Add error handling
       console.error("Error fetching faqs:", status, error);
       $("#dashboardPlane").html("Error loading faqs.");
+    },
+  });
+}
+
+function displayProjects() {
+  $.ajax({
+    url: "recent_projects/show_projects.php",
+    method: "POST",
+    data: { action: "get_projects" },
+    success: function (data) {
+      $("#dashboardPlane").html(data);
+    },
+    error: function (xhr, status, error) {
+      // Add error handling
+      console.error("Error fetching projects:", status, error);
+      $("#dashboardPlane").html("Error loading projects.");
     },
   });
 }
@@ -137,6 +153,7 @@ const statistics = getUrlParameter("statistics");
 const quotes = getUrlParameter("quotes");
 const testimonials = getUrlParameter("testimonials");
 const faqs = getUrlParameter("faqs");
+const projects = getUrlParameter("projects");
 
 if (messages !== null) {
   displayMessages();
@@ -148,6 +165,8 @@ if (messages !== null) {
   displayTestimonials();
 } else if (faqs !== null) {
   displayFAQs();
+} else if (projects !== null) {
+  displayProjects();
 } else {
   displayStatistic();
 }
