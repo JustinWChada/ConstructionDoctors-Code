@@ -30,7 +30,7 @@ $pa = false;
                         $project_title = $row['project_title'];
                         $project_description = $row['project_description'];
                         $project_image = $row['project_image'];
-                        $project_path = "../files/uploads/$project_image";
+                        $project_path = "../files/uploads/projects/$project_image";
                         $created_at = $row['created_at'];
                         $active = "";
 
