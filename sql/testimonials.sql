@@ -4,7 +4,7 @@ CREATE TABLE testimonials (
     rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
     comment TEXT NOT NULL,
     image VARCHAR(255) NULL DEFAULT NULL,
-    submission_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_approved BOOLEAN DEFAULT FALSE,
     comment_reply TEXT NULL,
     comment_reply_date DATE DEFAULT NULL
